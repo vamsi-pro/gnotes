@@ -1,0 +1,13 @@
+.dashboard {
+    height: 100vh;
+}
+.listbar {
+    width: 27%;
+    word-wrap: break-word;
+}
+.notebar {
+    width: 73%;
+}
+.icon {
+    cursor: pointer;
+}
