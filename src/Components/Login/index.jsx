@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom'
 // styles
 import './styles.css'
 
-const Login = () => {
+const Login = ({ setAuthorize }) => {
     const [credentials, setCredentials] = useState({ userName: '', password: '' })
     const [userDetails, setUserDetails] = useState({})
 
@@ -54,6 +54,7 @@ const Login = () => {
 
         if (userDetails.userName === userName && userDetails.password === password) {
             history.push('/dashboard')
+            setAuthorize(true)
             setUserError({ error: null, message: '' })
             setPassError({ error: null, message: '' })
         } else {
@@ -62,7 +63,7 @@ const Login = () => {
     }
 
     return (
-        <div>
+        <div data-testid="login-test">
             <Grid>
                 <Paper elevation={10} className="p-5 mx-auto wrapper">
                     <Grid align="center">

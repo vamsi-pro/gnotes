@@ -1,5 +1,6 @@
 import React from 'react'
 import { uid } from 'react-uid'
+import { useHistory } from 'react-router-dom'
 
 // components
 import AddNote from '../AddNote'
@@ -8,27 +9,34 @@ import { useDispatch } from 'react-redux'
 import { selectNoteList, removeNote } from '../../redux/addNoteSlice'
 
 // material-ui
-import { List, Grid, ListItem, ListItemText } from '@material-ui/core'
+import { List, Grid, ListItem, ListItemText, Button } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
 // styles
 import './styles.css'
 
-const Dashboard = () => {
+const Dashboard = ({ setAuthorize }) => {
     const notesList = useSelector(selectNoteList)
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const removeItemHandler = (value) => () => {
         console.log(value)
         dispatch(removeNote(value))
     }
 
-    console.log('notesList', notesList)
+    const onLogout = () => {
+        history.push('/')
+        setAuthorize(false)
+    }
 
     return (
         <div>
-            <nav className="p-4 bg-light border-bottom">
+            <nav className="p-4 bg-light border-bottom d-flex justify-content-between">
                 <h4 className="text-muted">G Notes</h4>
+                <Button variant="contained" onClick={onLogout}>
+                    logout
+                </Button>
             </nav>
             <div className="d-flex dashboard">
                 <div className="listbar border-right">

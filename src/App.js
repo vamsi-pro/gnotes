@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // tools
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 // components
 import Dashboard from './Components/Dashboard'
@@ -19,11 +19,18 @@ const App = () => {
         )
     }, [])
 
+    /**
+     * Setting the protected routes and routing
+     */
+    const [authorize, setAuthorize] = useState(false)
+
     return (
         <Router>
             <Switch>
-                <Route exact path="/" component={Login} />
-                <Route exact path="/dashboard" component={Dashboard} />
+                <Route exact path="/dashboard">
+                    {!authorize ? <Redirect to="/" /> : <Dashboard setAuthorize={setAuthorize} />}
+                </Route>
+                <Route exact path="/" component={() => <Login setAuthorize={setAuthorize} />} />
             </Switch>
         </Router>
     )
